@@ -1,0 +1,33 @@
+body
+{
+    background-color: rgba(181, 236, 218, 0.966)
+}
+p
+{
+    justify-content: center;
+    text-align: center;
+}
+h1
+{
+    color:black; 
+    text-align: center;
+    justify-content: center;
+}
+input[type=text] 
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+
+input[type=text]:focus 
+{
+  background-color: lightblue;
+}
+.sla
+{
+    padding: 10px;
+}
