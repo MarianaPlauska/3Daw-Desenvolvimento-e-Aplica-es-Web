@@ -1,0 +1,83 @@
+<?php
+    $ehPost = true;
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $nome = $_POST ["nome"]; 
+        $matricula= $_POST ["matricula"];
+
+        echo json_encode($_POST ["nome"]); 
+        echo json_encode($_POST ["matricula"]); 
+
+    if($nome == NULL  || $matricula== NULL)
+    {
+        echo "Nao foi! <br><br>";
+    }
+    else if(!file_exists("Dojo.json")) 
+    {
+       $arquivo = fopen ("Dojo.json", "a+");
+       $informacao = "{\"Alunos\":[ \n";
+
+       fwrite($arquivo, $informacao);
+    
+       $ordem = ($nome.";".$matricula.";\n");
+       $footer = "] \n }";
+
+       fwrite($arquivo, $ordem);
+       fwrite($arquivo,$footer); 
+
+       fclose($arquivo);
+
+    }
+    else 
+    {
+        $arquivo = fopen ("Dojo.json", "a+");
+        $informacao = "{\"Alunos\":[ \n";
+
+        fwrite($arquivo, $informacao);
+
+        $ordem = json_encode($nome."\n".$matricula."\n");
+        $footer = "] \n }";
+        
+        fwrite ($arquivo, $ordem);
+        fwrite($arquivo,$footer); 
+        
+        fclose($arquivo);
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8"/>
+    <title>Dojo 2 json</title>
+    <style>
+        input[type=text]
+        {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 3px solid #ccc;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Informações:</h2>
+
+    <form action="dojo.php" method="POST">
+        <fieldset>
+            <label for="name">Nome:</label> 
+            <input type="text" name="nome">
+            <label for="matricula">Matricula:</label> 
+            <input type="text" name="matricula"> <br>
+            <input type="submit" value="incluir">
+        </fieldset>
+    </form>
+    
+</body>
+</html>
