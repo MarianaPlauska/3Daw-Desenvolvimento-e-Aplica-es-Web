@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir</title>
+
+    <script>
+        //excluir aluno do banco com javascript
+        function excluirAluno(pMat) 
+        {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() 
+            {
+                console.log("mudou status: " + this.readyState);
+
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    console.log("Resposta enviada: " + this.responseText)
+                    document.getElementById("msg").innerHTML = this.responseText;
+                }
+            }
+            xmlHttp.open("GET", "http://localhost/3dawmanha/ex10ExcluirAlunoJS?matricula=" + pMat);
+            xmlHttp.send();
+            console.log("Requisição enviada");
+        }
+    </script>
+</head>
+<body>
+    <h1>Excluir</h1>
+
+    <form id="formExcluir">
+        <!--Selecionar aluno para excluir-->
+
+        <label>Matricula:</label>
+        <input type = "text" name = "matricula" id = "matricula"><br><br>
+
+        <input type = "button" name = "envio" value="Enviar" 
+        onclick="excluirAluno(document.getElementById('matricula').value);">
+    </form>
+    <p id="msg"></p>
+
+</body>
+</html>
