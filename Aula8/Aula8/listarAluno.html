@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>incluir</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function enviarForm() { //(pNome, pMat, pEmail, pCpf) {
+                let pNome = document.getElementById("nome").value;
+                let pMat = document.getElementById("matricula").value;
+                let pEmail = document.getElementById("email").value;
+                let pCpf = document.getElementById("cpf").value;
+                let xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    console.log("mudou status: " + this.readyState);
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log("Chegou resposta: " + this.responseText)
+                        document.getElementById("msg").innerHTML = this.responseText;
+                    }
+                }
+                xmlHttp.open("GET", "http://localhost/3dawmanha/ex10IncluirAlunoJS?nome=" + pNome +
+                "&email=" + pEmail + "&cpf=" + pCpf + "&matricula=" + pMat);
+                xmlHttp.send();
+                console.log("Enviei requisição");
+            }
+
+        function carregaAlunos() {
+            let xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    console.log("mudou status: " + this.readyState);
+                    if (this.readyState == 4 && this.status == 200) {
+                    //    console.log("Chegou resposta: " + this.responseText)
+                    //    document.getElementById("msg").innerHTML = this.responseText;
+                        let objAlunos = this.responseText;
+                        let obj = JSON.parse(this.responseText);
+                        let x = 0;
+                        for (x=0;x<obj.length;x++) {
+                            console.log("Posicao do Array " + x + " : " + obj[x].nome);
+                            let linha = obj[x];
+                            criarLinhaTabela(linha);
+                        }
+                        console.log("Posicao do x " + x );
+                    }
+                }
+                xmlHttp.open("GET", "http://localhost/3dawmanha/ex11_ListarAlunoJS.php");
+                xmlHttp.send();
+        }
+        function excluirAluno(){
+            let pMat = document.getElementById("matricula").value;
+            let xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    console.log("mudou status: " + this.readyState);
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log("Chegou resposta: " + this.responseText)
+                        document.getElementById("msg").innerHTML = this.responseText;
+                    }
+                }
+                xmlHttp.open("GET", "http://localhost/3dawmanha/ex12_ExcluirAlunoJS.php?matricula=" + pMat);
+                xmlHttp.send();
+                console.log("Enviei requisição");
+        }
+        function criarLinhaTabela(pobjReturnJSON) {
+            let tb = document.getElementById("tab");
+             let tr = document.createElement("tr"); // cria o elemento tr
+            // let td = document.createElement("td"); // cria o element td
+            // let textnode = document.createTextNode(pobjReturnJSON.id);
+            // td.appendChild(textnode); // adiciona o texto na td criada
+            // tr.appendChild(td); // adiciona a td na tr
+
+            let td2 = document.createElement("td"); // cria o element td
+            textnode = document.createTextNode(pobjReturnJSON.nome);
+            td2.appendChild(textnode); // adiciona o texto na td criada
+            tr.appendChild(td2); // adiciona a td na tr
+
+            let td5 = document.createElement("td"); // cria o element td
+            textnode = document.createTextNode(pobjReturnJSON.matricula);
+            td5.appendChild(textnode); // adiciona o texto na td criada
+            tr.appendChild(td5); // adiciona a td na tr
+
+            let td3 = document.createElement("td"); // cria o element td
+            textnode = document.createTextNode(pobjReturnJSON.email);
+            td3.appendChild(textnode); // adiciona o texto na td criada
+            tr.appendChild(td3); // adiciona a td na tr
+
+            // let td4 = document.createElement("td"); // cria o element td
+            // textnode = document.createTextNode(pobjReturnJSON.cpf);
+            // td4.appendChild(textnode); // adiciona o texto na td criada
+            // tr.appendChild(td4); // adiciona a td na tr
+
+            tb.appendChild(tr);
+
+            // let tr_fim = document.getElementById("ultimaLinha"); // pega a tr pelo id
+            // // adiciona o elemento criado, a partir do nó pai (no caso <table>)
+            // tr_fim.parentNode.insertBefore(tr, tr_fim);
+        }
+
+    </script>
+</head>
+<body onload="carregaAlunos();">
+    <ul>
+        <li><a href="ex10IncluirAlunosJS.html">Incluir Aluno</a></li>
+        <li><a href="ex11_AlterarIncluirAlunosJS.html">Alterar Aluno</a></li>
+        <li><a href="ex11_ExcluirAlunosJS.html">Excluir Aluno</a></li>
+        <li><a href="ex11_ListarAlunosJS.html">Listar Aluno</a></li>
+    </ul>
+
+    <!--Inserir um botão de ações: excluir e listar-->
+    <table id="tab" style="border:1px solid">
+        <tr style="border:1px solid">
+            <th style="border:1px solid">Nome</th>
+            <th style="border:1px solid">Matricula</th>
+            <th style="border:1px solid">Email</th>
+            <th style="border:1px solid">CPF</th>
+        </tr>
+            <!--botão para listar e excluir-->
+            <tr id="ultimaLinha">
+                <td colspan="4" style="border:1px solid">
+                    <button onclick="carregaAlunos()">Listar</button>
+                </td>
+            </tr>
+            <tr id="ultimaLinha">
+                <td colspan="4" style="border:1px solid">
+                    <button onclick="excluirAluno()">Excluir</button>
+                </td>
+            </tr>
+
+     </table>
+
+    <p id="msg">
+    </p>
+</body>
+</html>
