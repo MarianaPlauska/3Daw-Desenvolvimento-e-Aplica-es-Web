@@ -1,0 +1,71 @@
+/*css para formulário*/
+h1 {
+    text-align: center;
+    color: rgb(95, 92, 81);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+.formulario {
+    width: 400px;
+    margin: 0 auto;
+    padding: 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formulario input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: #fff;
+    font-weight: bold;
+}
+
+.formulario input[type="submit"]:hover {
+    background-color: #fff;
+    color: rgb(206, 199, 199);
+}
+
+.formulario input[type="submit"]:active {
+    background-color: #fff;
+    color: rgb(212, 16, 16);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+img {
+    position : relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 100px;
+
+}
+
+#tab {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 100px;
+    color: rgb(38, 57, 58);
+}

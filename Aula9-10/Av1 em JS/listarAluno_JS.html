@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Lista de alunos</title>
+
+    <script>
+        function incluirAluno ()
+        {
+            var nome = document.getElementById("nome").value;
+            var mat = document.getElementById("mat").value;
+            var email = document.getElementById("email").value;
+            var cpf = document.getElementById("cpf").value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "http://localhost/3dawmanha/incluirAluno?nome=" + pNome +"&email=" + email + "&cpf=" 
+            + cpf + "&matricula=" + mat);
+            xmlhttp.send();   
+        }
+        function listarAlunos ()
+        {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            let obj = JSON.parse (this.responseText);
+            let x=0;
+            let txt = "<table border='1'>";
+            txt += "<tr><th>Nome</th><th>Matricula</th><th>Email</th><th>CPF</th></tr>";
+            for (x in obj)
+            {
+                txt += "<tr><td>" + obj[x].nome + "</td><td>" + obj[x].matricula + "</td><td>" + obj[x].email + "</td><td>" + obj[x].cpf + "</td></tr>";
+            }
+            txt += "</table>";
+            document.getElementById("resultado").innerHTML = txt;
+            xmlhttp.open("GET", "http://localhost/3dawmanha/listarAlunos_JS.php");
+            xmlhttp.send();
+        }
+        function criarLinha(pobjReturnJSON)
+        {
+            let tb = document.getElementById("tabela");
+            let tr = document.createElement("tr");
+            let td2 = document.createElement("td");
+            texnode = document.createTextNode(pobjReturnJSON.nome);
+            td2.appendChild(texnode);
+            tr.appendChild(td2);
+            let td3 = document.createElement("td");
+            texnode = document.createTextNode(pobjReturnJSON.matricula);
+            td3.appendChild(texnode);
+            tr.appendChild(td3);
+            let td4 = document.createElement("td");
+            texnode = document.createTextNode(pobjReturnJSON.email);
+            td4.appendChild(texnode);
+            tr.appendChild(td4);
+            let td5 = document.createElement("td");
+            texnode = document.createTextNode(pobjReturnJSON.cpf);
+            td5.appendChild(texnode);
+            tr.appendChild(td5);
+            tb.appendChild(tr);
+        }
+    </script>
+</head>
+<body onload="listarAluno();" style="background-color: rgb(179, 171, 155);">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="incluirAluno.html">Incluir Aluno</a></li>
+        <li><a href="listarAluno_JS.html">Listar Aluno</a></li>
+        <li><a href="excluirAluno_JS.html">Excluir Aluno</a></li>
+        <li><a href="alterarAluno_JS.html">Alterar Aluno</a></li>
+    </ul>
+
+    <table id="tab" style="border:1px solid">
+        <tr style="border:1px solid">
+            <th style="border:1px solid">Nome</th>
+            <th style="border:1px solid">Matricula</th>
+            <th style="border:1px solid">Email</th>
+            <th style="border:1px solid">Ações</th>
+        </tr>
+    </table>
+    <p id="msg">
+    </p>
+    <a href="index.html">Voltar</a>
+</body>
+</html>
