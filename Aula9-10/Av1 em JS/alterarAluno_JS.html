@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Alterar Aluno</title>
+
+    <script>
+        function incluirAluno ()
+        {
+            var nome = document.getElementById("nome").value;
+            var mat = document.getElementById("mat").value;
+            var email = document.getElementById("email").value;
+            var cpf = document.getElementById("cpf").value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "http://localhost/3dawmanha/incluirAluno?nome=" + pNome +"&email=" + email + "&cpf=" 
+            + cpf + "&matricula=" + mat);
+            xmlhttp.send();   
+        }
+        function listarAlunos ()
+        {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            let obj = JSON.parse (this.responseText);
+            let x=0;
+            let txt = "<table border='1'>";
+            txt += "<tr><th>Nome</th><th>Matricula</th><th>Email</th><th>CPF</th></tr>";
+            for (x in obj)
+            {
+                txt += "<tr><td>" + obj[x].nome + "</td><td>" + obj[x].matricula + "</td><td>" + obj[x].email + "</td><td>" + obj[x].cpf + "</td></tr>";
+            }
+            txt += "</table>";
+            document.getElementById("resultado").innerHTML = txt;
+            xmlhttp.open("GET", "http://localhost/3dawmanha/listarAlunos_JS.php");
+            xmlhttp.send();
+        }
+
+        function alterarAluno ()
+        {
+            //Alterar os dados do aluno no banco de dados
+            var nome = document.getElementById("nome").value;
+            var mat = document.getElementById("mat").value;
+            var email = document.getElementById("email").value;
+            var cpf = document.getElementById("cpf").value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "http://localhost/3dawmanha/alterarAluno?nome=" + pNome +"&email=" + email + "&cpf="
+            + cpf + "&matricula=" + mat);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body style="background-color: rgb(230, 222, 199);">
+    <h1>Alteração de Dados</h1>
+    <form class="formulario">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Nome do aluno">
+        <br>
+        <label for="mat">Matricula:</label>
+        <input type="text" id="mat" name="mat" placeholder="Matricula do aluno">
+        <br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Email do aluno">
+        <br>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" placeholder="CPF do aluno">
+        <br>
+        <input type="button" value="Alterar" onclick="alterarAluno()">
+    </form>
+    
+    <a href="index.html">Voltar</a>
+</body>
+</html>
