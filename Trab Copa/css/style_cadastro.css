@@ -1,0 +1,67 @@
+body {
+    /*background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);*/
+    background-color: antiquewhite;
+    color: #000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    margin: 0;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 14px;
+    padding: 10px;
+    text-align: center;
+    color : rgb(13, 110, 155);
+}
+
+/*fazer menu*/
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+/*formulário para cadastro das seleções*/
+form {
+    border: 3px solid #f1f1f1;
+}
+.cadastro {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.botaozin {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    height: 30px;
+}

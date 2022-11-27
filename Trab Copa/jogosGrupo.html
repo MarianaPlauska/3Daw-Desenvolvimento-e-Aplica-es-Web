@@ -1,0 +1,174 @@
+<!--Mostrar os jogos de um grupo com os resultados dos jogos já ocorridos.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parciais por grupo</title>
+    <link rel="stylesheet" href="css/styleCalendario.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function mostrarJogos() {
+            var grupo = document.getElementById("grupo").value;
+            var jogo = document.getElementById("jogo").value;
+            var jogos = document.getElementById("jogos");
+            var jogosGrupo = document.getElementById("jogosGrupo");
+            var jogosGrupoA = document.getElementById("jogosGrupoA");
+            var jogosGrupoB = document.getElementById("jogosGrupoB");
+            var jogosGrupoC = document.getElementById("jogosGrupoC");
+            var jogosGrupoD = document.getElementById("jogosGrupoD");
+            var jogosGrupoE = document.getElementById("jogosGrupoE");
+            var jogosGrupoF = document.getElementById("jogosGrupoF");
+            var jogosGrupoG = document.getElementById("jogosGrupoG");
+            var jogosGrupoH = document.getElementById("jogosGrupoH");
+
+            jogos.style.display = "none";
+            jogosGrupo.style.display = "block";
+            jogosGrupoA.style.display = "none";
+            jogosGrupoB.style.display = "none";
+            jogosGrupoC.style.display = "none";
+            jogosGrupoD.style.display = "none";
+            jogosGrupoE.style.display = "none";
+            jogosGrupoF.style.display = "none";
+            jogosGrupoG.style.display = "none";
+            jogosGrupoH.style.display = "none";
+
+            if (grupo == "A") {
+                jogosGrupoA.style.display = "block";
+            } else if (grupo == "B") {
+                jogosGrupoB.style.display = "block";
+            } else if (grupo == "C") {
+                jogosGrupoC.style.display = "block";
+            } else if (grupo == "D") {
+                jogosGrupoD.style.display = "block";
+            } else if (grupo == "E") {
+                jogosGrupoE.style.display = "block";
+            } else if (grupo == "F") {
+                jogosGrupoF.style.display = "block";
+            } else if (grupo == "G") {
+                jogosGrupoG.style.display = "block";
+            } else if (grupo == "H") {
+                jogosGrupoH.style.display = "block";
+            }
+
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("jogosGrupo").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "jogosGrupo.php?grupo=" + grupo + "&jogo=" + jogo, true);
+            xmlhttp.send();
+
+            let results = (obj[x].results).localeCompare("null");
+            if (results == 0) {
+                document.getElementById("jogosGrupo").innerHTML = "Jogo ainda não ocorreu";
+            }
+            else 
+            {
+                document.getElementById("jogosGrupo").innerHTML = this.responseText;
+                for (x=0; x< obj.lenght;x++)
+                {
+                    let linha = obj [x];
+                    criaLinha(linha);
+                }
+            }
+        }
+        
+        function criaLinha(linha) {
+            let tr= document.createElement("tr");
+            let td1 = document.createElement("td");
+
+            let data =document.createElement("td");
+            textnode = document.createTextNode(linha.data);
+            data.appendChild(textnode);
+            tr.appendChild(data);
+
+            let time1 =document.createElement("td");
+            textnode = document.createTextNode(linha.time1);
+            time1.appendChild(textnode);
+            tr.appendChild(time1);
+
+            let time2 =document.createElement("td");
+            textnode = document.createTextNode(linha.time2);
+            time2.appendChild(textnode);
+            tr.appendChild(time2);
+
+            let resultado =document.createElement("td");
+            textnode = document.createTextNode(linha.resultado);
+            resultado.appendChild(textnode);
+            tr.appendChild(resultado);
+
+            let estadio =document.createElement("td");
+            textnode = document.createTextNode(linha.estadio);
+            estadio.appendChild(textnode);
+            tr.appendChild(estadio);
+
+            let gols1 =document.createElement("td");
+            textnode = document.createTextNode(linha.gols1);
+            gols1.appendChild(textnode);
+            tr.appendChild(gols1);
+
+            let gols2 =document.createElement("td");
+            textnode = document.createTextNode(linha.gols2);
+            gols2.appendChild(textnode);
+            tr.appendChild(gols2);
+
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <header>
+        <div class="container">
+            <div id="branding">
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="inserirSelecao.html">Cadastrar seleção</a></li>
+                    <li><a href="alterar.html">Alterar Seleções</a></li>
+                    <li><a href="confronto_cadastroJogos.html">Cadastro de jogos</a></li>
+                    <li><a href="jogosSelecao.html">Jogos de uma seleção</a></li>
+                    <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                    <li><a href="calendarioJogos.html">Calendário de jogos</a></li>
+                    <li><a href="oitavas.html">Oitavas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+        <!--escolhendo o grupo-->
+            <div class="main">
+                <p>Selecione o grupo desejado:</p>
+                <form action="jogosGrupo.php" method="post">
+                    <select name="grupo">
+                        <option value="A">Grupo A</option>
+                        <option value="B">Grupo B</option>
+                        <option value="C">Grupo C</option>
+                        <option value="D">Grupo D</option>
+                        <option value="E">Grupo E</option>
+                        <option value="F">Grupo F</option>
+                        <option value="G">Grupo G</option>
+                        <option value="H">Grupo H</option>
+                    </select>
+                    <input type="submit" value="Mostrar" onclick="mostrarJogos();">
+                </form>
+            </div>
+        </div>
+    </header>
+    <!--mostrar os resultados de todos os jogos de cada grupo escolhido-->
+    <div class="main">
+        <h1>Resultados</h1>
+        <p>Resultados dos jogos do grupo </p>
+        <table>
+            <tr>
+                <th>Seleção 1</th>
+                <th>Seleção 2</th>
+                <th>Resultado</th>
+            </tr>
+        </table>
+    </div>
+     
+</body>
+</html>

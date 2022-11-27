@@ -1,0 +1,124 @@
+<!--mostra o calendário de uma seleção solicitada-->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendário Seleção</title>
+    <link rel="stylesheet" href="css/styleCalendario.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function calendarioSelecao(){
+            var selecao= document.getElementById("selecao").value;
+            var xmlHttpv= new XMLHttpRequest();
+
+            xmlHttpv.onreadystatechange= function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    document.getElementById("resultado").innerHTML= this.responseText;
+                    let obj= JSON.parse(this.responseText);
+
+                    var i=0;
+                    var tabela= document.getElementById("tabela");
+                    var linhas= tabela.getElementsByTagName("tr");
+                    var colunas= linhas[0].getElementsByTagName("th");
+                    var colunas2= linhas[1].getElementsByTagName("td");
+                    
+                    let result = (obj[i].local).localeCompare("Aundefined");
+                    if (result !=0)
+                    {
+                        for(i=0; i<obj.length; i++)
+                        {
+                            let linha=obj[i].local;
+                            criarLinhaTabela(linha);
+                            colunas[i].style.backgroundColor= "black";
+                            colunas[i].style.color= "white";
+                        }
+
+                    }
+                }
+            };
+            xmlHttpv.open("GET", "calendarioSelecao.php?selecao="+selecao, true);
+            xmlHttpv.send();
+        }
+        function criarLinhaTabela(linha){
+            var tabela= document.getElementById("tabela");
+            var tr = document.createElement("tr");
+
+            var data = document.createElement("td");
+            textnode = document.createTextNode(linha.data);
+            data.appendChild(textnode);
+            tr.appendChild(data);
+
+            var local = document.createElement("td");
+            textnode = document.createTextNode(linha.local);
+            local.appendChild(textnode);
+            tr.appendChild(local);
+
+            var selecao1 = document.createElement("td");
+            textnode = document.createTextNode(linha.selecao1);
+            selecao1.appendChild(textnode);
+            tr.appendChild(selecao1);
+
+            var selecao2 = document.createElement("td");
+            textnode = document.createTextNode(linha.selecao2);
+            selecao2.appendChild(textnode);
+            tr.appendChild(selecao2);
+
+            var resultado = document.createElement("td");
+            textnode = document.createTextNode(linha.resultado);
+            resultado.appendChild(textnode);
+            tr.appendChild(resultado);
+
+            tabela.appendChild(tr);
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <header>
+        <div class="container">
+            <div id="branding">
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="inserirSelecao.html">Cadastrar seleção</a></li>
+                    <li><a href="alterar.html">Alterar Seleções</a></li>
+                    <li><a href="confronto_cadastroJogos.html">Cadastro de jogos</a></li>
+                    <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                    <li><a href="jogosGrupo.html">Jogos por grupo</a></li>
+                    <li><a href="calendarioJogos.html">Calendário de jogos</a></li>
+                    <li><a href="oitavas.html">Oitavas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <h1>Jogos de uma seleção</h1>
+    <!--mostrar jogos da seleção buscada pelo usuário-->
+    <form id="formulario">
+        <fieldset>
+            <legend>Calendário Seleção</legend>
+            <label for="selecao">Selecione a seleção:</label>
+            <input type="text" name ="selecao" id="selecao" placeholder="Digite o nome da seleção">
+        </fieldset>
+    </form>
+
+    <button type="button" onclick="calendarioSelecao()">Buscar</button>
+    <br>
+    <br>
+
+    <div id="resultado">
+        <table id="tabela">
+            <tr>
+                <th>Data</th>
+                <th>Local</th>
+                <th>Seleção 1</th>
+                <th>Seleção 2</th>
+                <th>Resultado</th>
+            </tr>
+        </table>
+
+    </div>   
+</body>
+</html>

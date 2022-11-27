@@ -1,0 +1,116 @@
+<!--alteração de dados de seleções.-->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Dados</title>
+    <link rel="stylesheet" href="css/style_cadastro.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function validar() {
+
+            var nome = document.getElementById("nome").value;
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+
+            if (nome == "") {
+                alert("Preencha o campo nome");
+                document.getElementById("nome").focus();
+                return false;
+            }
+            if (tecnico == "") {
+                alert("Preencha o campo tecnico");
+                document.getElementById("tecnico").focus();
+                return false;
+            }
+            if (grupo == "") {
+                alert("Preencha o campo grupo");
+                document.getElementById("grupo").focus();
+                return false;
+            }
+        }
+        function buscarPais () {
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+            var pais = document.getElementById("pais").value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    var myObj = JSON.parse(this.responseText);
+                    document.getElementById("pais").value = myObj.pais;
+                    document.getElementById("tecnico").value = myObj.tecnico;
+                    document.getElementById("grupo").value = myObj.grupo;
+                }
+            };
+            xmlhttp.open("GET", "buscar.php?pais=" + pais, true);
+            xmlhttp.send();
+        }
+        function alterarPais () {
+            var pais = document.getElementById("pais").value;
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    var myObj = JSON.parse(this.responseText);
+                    document.getElementById("pais").value = myObj.pais;
+                    document.getElementById("tecnico").value = myObj.tecnico;
+                    document.getElementById("grupo").value = myObj.grupo;
+                }
+            };
+            xmlhttp.open("GET", "alterar.php?pais=" + pais + "&tecnico=" + tecnico + "&grupo=" + grupo, true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+   <!--menu-->
+   <header>
+    <div class="container">
+        <div id="branding">
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="index.html">Home</a></li>
+                <li><a href="inserirSelecao.html">Cadastrar seleção</a></li>
+                <li><a href="confronto_cadastroJogos.html">Cadastro de jogos</a></li>
+                <li><a href="jogosSelecao.html">Jogos de uma seleção</a></li>
+                <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                <li><a href="jogosGrupo.html">Jogos por grupo</a></li>
+                <li><a href="calendarioJogos.html">Calendário de jogos</a></li>
+                <li><a href="oitavas.html">Oitavas</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <section id="showcase">
+        <div class="container">
+            <h1>Alterar Dados</h1>
+        </div>
+    </section>
+
+    <!--buscar o país que deseja alterar os dados e verificar se ele foi cadastrado-->
+    <form id="buscarPaís">
+        <div class="container">
+            <legend for="pais">Buscar País</legend>
+            <input type="text" name="pais" id="pais" placeholder="País" required>
+            <input type="button" value="Buscar" onclick="buscarPais()">
+        </div>
+    </form>
+    <br>
+    <br>
+    <!--alterar dados-->
+    <form id="alterar" onsubmit="return validar()" action="alterar.php" method="post">
+        <div class="container">
+            <legend for="pais">Alterar País</legend>
+            <input type="text" name="pais" id="pais" placeholder="País" required>
+            <input type="text" name="tecnico" id="tecnico" placeholder="Técnico" required>
+            <input type="text" name="grupo" id="grupo" placeholder="Grupo" required>
+            <input type="button" value="Alterar" onclick="alterarPais()">
+        </div>
+</body>
+</html>

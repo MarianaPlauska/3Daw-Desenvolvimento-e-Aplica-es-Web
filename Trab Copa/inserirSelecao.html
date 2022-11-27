@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="css/style_cadastro.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function validar() {
+            var nome = document.getElementById("nome").value;
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+
+            if (nome == "") 
+            {
+                alert("Preencha o campo nome");
+                document.getElementById("nome").focus();
+                return false;
+            }
+            if (tecnico == "") 
+            {
+                alert("Preencha o campo tecnico");
+                document.getElementById("tecnico").focus();
+                return false;
+            }
+            if (grupo == "") 
+            {
+                alert("Preencha o campo grupo");
+                document.getElementById("grupo").focus();
+                return false;
+            }
+        }
+        function cadastroPais () {
+            var selecao = document.getElementById("selecao").value;
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+            var xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.open("GET", "cadastroPais.php?selecao=" + selecao + "&tecnico=" + tecnico + "&grupo=" + grupo, true);
+            xmlHttp.send();
+
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    alert(xmlHttp.responseText);
+                }
+            }
+            location.reload();
+        }
+            /*var nome = document.getElementById("nome").value;
+            var tecnico = document.getElementById("tecnico").value;
+            var grupo = document.getElementById("grupo").value;
+
+            var pais = {
+                nome: nome,
+                tecnico: tecnico,
+                grupo: grupo
+            }
+
+            var listaPaises = localStorage.getItem("listaPaises");
+            listaPaises = JSON.parse(listaPaises);
+
+            if (listaPaises == null) {
+                listaPaises = [];
+            }
+
+            listaPaises.push(pais);
+            localStorage.setItem("listaPaises", JSON.stringify(listaPaises));
+            alert("Cadastro realizado com sucesso!");
+        */
+    </script>
+</head>
+<body>
+    <!--página inicial do site com opções no menu-->
+    <header>
+        <div class="container">
+            <div id="branding">
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="alterar.html">Alterar Seleções</a></li>
+                    <li><a href="confronto_cadastroJogos.html">Cadastro de jogos</a></li>
+                    <li><a href="jogosSelecao.html">Jogos de uma seleção</a></li>
+                    <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                    <li><a href="jogosGrupo.html">Jogos por grupo</a></li>
+                    <li><a href="calendarioJogos.html">Calendário de jogos</a></li>
+                    <li><a href="oitavas.html">Oitavas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!--cadastro-->
+    <div class="container">
+        <div class="header">
+            <h1>Inserir Seleção</h1>
+        </div>
+        <!--formulário-->
+        <div class="content">
+            <form id="inserirSelecao"method="post" onsubmit="return validar()">
+                <fieldset class="cadastro">
+                    <legend>Seleção</legend>
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome">
+                    <label for="tecnico">Técnico</label>
+                    <input type="text" name="tecnico" id="tecnico">
+                    <label for="grupo">Grupo</label>
+                    <input type="text" name="grupo" id="grupo">
+                    <input class="botaozin"type="submit" value="Cadastrar" onclick="cadastroPais();">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

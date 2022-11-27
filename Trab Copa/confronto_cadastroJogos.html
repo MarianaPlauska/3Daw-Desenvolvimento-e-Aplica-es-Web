@@ -1,0 +1,113 @@
+<!--Cadastro de Jogos de cada grupo.-->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de confrontos</title>
+    <link rel="stylesheet" href="css/confronto.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function confrontos(){
+            var selecao1 = document.getElementById("selecao1").value;
+            var selecao2 = document.getElementById("selecao2").value;
+            var data = document.getElementById("data").value;
+            var hora = document.getElementById("hora").value;
+            var local = document.getElementById("local").value;
+            var gols1 = document.getElementById("gols1").value;
+            var gols2 = document.getElementById("gols2").value;
+            var xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.open("GET", "confronto_cadastroJogos.php?selecao1=" + selecao1 + "&selecao2=" + selecao2 + "&data=" + data + "&hora=" + hora + "&local=" + local + "&gols1=" + gols1 + "&gols2=" + gols2, true);
+            xmlHttp.send();
+
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) 
+                {
+                    alert(xmlHttp.responseText);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <header>
+        <div class="container">
+            <div id="branding">
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="inserirSelecao.html">Cadastrar seleção</a></li>
+                    <li><a href="alterar.html">Alterar Seleções</a></li>
+                    <li><a href="jogosSelecao.html">Jogos de uma seleção</a></li>
+                    <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                    <li><a href="jogosGrupo.html">Jogos por grupo</a></li>
+                    <li><a href="calendarioJogos.html">Calendário de jogos</a></li>
+                    <li><a href="oitavas.html">Oitavas</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="showcase">
+        <div class="container">
+            <h1>Cadastro de confrontos</h1>
+            <p>Insira os dados do confronto</p>
+        </div>
+    </section>
+    <!--grupos-->
+    <form action="confrontos.php" method="post">
+        <fieldset>
+            <!--grupos-->
+            <legend>Confrontos</legend>
+            <label for="grupo">Grupo</label>
+            <select name="grupo" id="grupo">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+            </select>
+            <br>
+            <!--jogos da fase de grupos-->
+            <label for="jogo">Jogo</label>
+            <select name="jogo" id="jogo">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <br>
+            
+            <!--cadastro-->
+    <form id="cadastroJogos">
+            <label for="selecao1">Seleção 1:</label>
+            <input type="text" id="time1" name="selecao1" placeholder="selecao1" required>
+            <br>
+            <p>X</p>
+            <label for="selecao2">Seleção 2:</label>
+            <input type="text" id="selecao2" name="selecao2" placeholder="selecao2" required>
+            <br>
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" placeholder="Data" required>
+            <br>
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" placeholder="Hora" required>
+            <br>
+            <label for="local">Local:</label>
+            <input type="text" id="local" name="local" placeholder="Local" required>
+            <br>
+            <label for="gols1">Gols Time 1:</label>
+            <input type="number" id="gols1" name="gols1" placeholder="Gols Time 1" required>
+            <br>
+            <label for="gols2">Gols Time 2:</label>
+            <input type="number" id="gols2" name="gols2" placeholder="Gols Time 2" required>
+            <br>
+            <input type="button" name="envio" value="Enviar" onclick="confrontos();">
+        </fieldset>
+    </form>
+</body>

@@ -1,0 +1,129 @@
+<!--Mostrar o calendário de jogos completo com os resultados dos jogos já ocorridos (de acordo com o cadastrado).-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela de Resultados</title>
+    <link rel="stylesheet" href="css/styleCalendario.css">
+    <link rel="shortcut icon" href="brasil.jpg" type="image/x-icon">
+
+    <script>
+        function calendarioJogos(){
+            var selecao1= document.getElementById("selecao1").value;
+            var selecao2= document.getElementById("selecao2").value;
+            var xmlHttpv= new XMLHttpRequest();
+
+            xmlHttpv.onreadystatechange= function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    document.getElementById("resultado").innerHTML= this.responseText;
+                    let obj= JSON.parse(this.responseText);
+
+                    var i=0;
+                    var tabela= document.getElementById("tabela");
+                    var linhas= tabela.getElementsByTagName("tr");
+                    var colunas= linhas[0].getElementsByTagName("th");
+                    var colunas2= linhas[1].getElementsByTagName("td");
+                    
+                    let result = (obj[i].local).localeCompare("Aundefined");
+                    if (result !=0)
+                    {
+                        for(i=0; i<obj.length; i++)
+                        {
+                            let linha=obj[i].local;
+                            criarLinhaTabela(linha);
+                            colunas[i].style.backgroundColor= "black";
+                            colunas[i].style.color= "white";
+                        }
+
+                    }
+                }
+            };
+            xmlHttpv.open("GET", "calendarioJogos.php?selecao1="+selecao1+"&selecao2="+selecao2, true);
+            xmlHttpv.send();
+        }
+        function criarLinhaTabela(linha){
+            var tabela= document.getElementById("tabela");
+            var tr = document.createElement("tr");
+
+            var data = document.createElement("td");
+            textnode = document.createTextNode(linha.data);
+            data.appendChild(textnode);
+            tr.appendChild(data);
+
+            var local = document.createElement("td");
+            textnode = document.createTextNode(linha.local);
+            local.appendChild(textnode);
+            tr.appendChild(local);
+
+            var selecao1 = document.createElement("td");
+            textnode = document.createTextNode(linha.selecao1);
+            selecao1.appendChild(textnode);
+            tr.appendChild(selecao1);
+
+            var selecao2 = document.createElement("td");
+            textnode = document.createTextNode(linha.selecao2);
+            selecao2.appendChild(textnode);
+            tr.appendChild(selecao2);
+
+            var gols1 = document.createElement("td");
+            textnode = document.createTextNode(linha.gols1);
+            gols1.appendChild(textnode);
+            tr.appendChild(gols1);
+
+            var gols2 = document.createElement("td");
+            textnode = document.createTextNode(linha.gols2);
+            gols2.appendChild(textnode);
+            tr.appendChild(gols2);
+
+            tabela.appendChild(tr);
+            tabela.style.display= "block";
+
+
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+   <!--página inicial do site com opções no menu-->
+   <header>
+    <div class="container">
+        <div id="branding">
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="index.html">Home</a></li>
+                <li><a href="inserirSelecao.html">Cadastrar seleção</a></li>
+                <li><a href="alterar.html">Alterar Seleções</a></li>
+                <li><a href="confronto_cadastroJogos.html">Cadastro de jogos</a></li>
+                <li><a href="jogosSelecao.html">Jogos de uma seleção</a></li>
+                <li><a href="resultado_umJogo.html">Resultado de um jogo</a></li>
+                <li><a href="jogosGrupo.html">Jogos por grupo</a></li>
+                <li><a href="oitavas.html">Oitavas</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <!--msotrar o calendário de todos os jogos cadastrados-->
+    <div class="container">
+        <div class="titulo">
+            <h1>Calendário de Jogos</h1>
+        </div>
+        <div class="resultado" id="resultado">
+            <table id="tabela">
+                <tr>
+                    <th>Data</th>
+                    <th>Local</th>
+                    <th>Seleção 1</th>
+                    <th>Seleção 2</th>
+                    <th>Gols 1</th>
+                    <th>Gols 2</th>
+                </tr>
+            </table>
+        </div>
+  
+
+
+</body>
+</html>
