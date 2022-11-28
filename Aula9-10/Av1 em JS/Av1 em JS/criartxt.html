@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar txt</title>
+
+    <script>
+        function criarTxt()
+        {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "http://localhost/3dawmanha/criarTxt.php");
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Criar</h1>
+    <form action="criarTxt.php" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome">
+        <br>
+        <label for="mat">Matricula:</label>
+        <input type="text" name="mat" id="mat">
+        <br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email">
+        <br>
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf" id="cpf">
+        <br>
+        <input type="submit" value="Criar">
+    </form>
+</body>
+</html>
