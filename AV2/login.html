@@ -1,0 +1,58 @@
+<!--login do usuário-->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="./imagens/logo.png" type="image/x-icon">
+
+    <script> 
+        function login(usuario, senha) {
+            const usuario = buscarUsuario(usuario, senha);
+            
+            if (usuario) 
+            {
+                if (usuario.senha == senha) 
+                {
+                    alert("Login efetuado com sucesso!");
+                } 
+                else 
+                {
+                    alert("Senha incorreta!");
+                }
+            } 
+            else 
+            {
+                alert("Usuário não encontrado, amigo!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="incluirCarro.html">Incluir carro</a></li>
+            <li><a href="buscarCarro.html">Buscar carro</a></li>
+        </ul>
+    </div>
+    <h1>Login</h1>
+    <br>
+    <p>Informe seu usuário e senha</p>
+    <br>
+    <div class="login">
+        <form action="login.php" method="post">
+            <label for="usuario">Usuário</label>
+            <input type="text" name="usuario" id="usuario" required>
+            <br>
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" required>
+            <br><br>
+            <input type="submit" value="Entrar">
+        </form>
+    </div>
+</body>
+</html>

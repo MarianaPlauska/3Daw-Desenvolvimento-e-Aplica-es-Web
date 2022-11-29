@@ -1,0 +1,62 @@
+<!--incluir cadastro de carros-->
+<!--Todas as requisições devem ser feitas pelo Javascript e o retorno do php deve ser JSON.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incluir carro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagens/logo.png" type="image/x-icon">
+
+    <script>
+        function incluirCarro() {
+           let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("demo").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("POST", "incluirCarro.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("modelo="+document.getElementById("modelo").value+"&marca="+document.getElementById("marca").value+"&ano="+document.getElementById("ano").value+"&cor="+document.getElementById("cor").value+"&placa="+document.getElementById("placa").value+"&valor="+document.getElementById("valor").value+"&categoria="+document.getElementById("categoria").value);
+        }
+    </script>
+</head>
+<body>
+    <!--menu com as opções-->
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="incluirCarro.html">Incluir carro</a></li>
+            <li><a href="alugarCarro.html">Alugar carro</a></li>
+            <li><a href="buscarCarro.html">Buscar carro</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </div>
+    <div class="conteudo">
+        <h1>Incluir carro</h1>
+
+        <p>Informe os dados do carro</p>
+
+        <form action="incluirCarro.php">
+            <label for="modelo">Modelo</label>
+            <input type="text" id="modelo" name="modelo" placeholder="Modelo do carro">
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" name="marca" placeholder="Marca do carro">
+            <label for="ano">Ano</label>
+            <input type="text" id="ano" name="ano" placeholder="Ano do carro">
+            <label for="cor">Cor</label>
+            <input type="text" id="cor" name="cor" placeholder="Cor do carro">
+            <label for="placa">Placa</label>
+            <input type="text" id="placa" name="placa" placeholder="Placa do carro">
+            <label for="valor">Valor</label>
+            <input type="text" id="valor" name="valor" placeholder="Valor do carro">
+            <label for="categoria">Categoria</label>
+            <input type="text" id="categoria" name="categoria" placeholder="Categoria do carro">
+            <input type="submit" value="Incluir" onclick="incluirCarro()">
+        </form>
+    </div>
+</body>
+</html>

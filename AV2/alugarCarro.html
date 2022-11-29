@@ -1,0 +1,74 @@
+<!--alugar carro disponível-->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Aluguel de carro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+
+    <script> 
+        function alugarCarro(carros, placa) {
+            const carro buscarCarro(carros, placa);
+            
+            if (carro) 
+            {
+                if (carro.disponivel) 
+                {
+                    carro.disponivel = false;
+                    alert("Carro alugado com sucesso!");
+                } 
+                else 
+                {
+                    alert("Carro indisponível!");
+                }
+            } 
+            else 
+            {
+                alert("Carro não encontrado, amigo!");
+            }
+        }
+        
+        
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="incluirCarro.html">Incluir carro</a></li>
+            <li><a href="buscarCarro.html">Buscar carro</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </div>
+    <h1>Algue aqui o seu carro</h1>
+    <br>
+    <p>Escolha o carro para alugar</p>
+    <br>
+    <div class="conteudo">
+        <form action="alugarCarro.php" method="post">
+            <label for="modelo">Modelo</label>
+            <input type="text" name="modelo" id="modelo" required>
+            <label for="marca">Marca</label>
+            <input type="text" name="marca" id="marca" required>
+            <label for="ano">Ano</label>
+            <input type="number" name="ano" id="ano" required>
+            <label for="cor">Cor</label>
+            <input type="text" name="cor" id="cor" required>
+            <label for="data" name="data">Data de aluguel</label>
+            <input type="date" name="data" id="data" required>
+            <br>
+            <label for="periodo">30 dias</label>
+            <input type="checkbox" name="periodo" id="periodo" required>
+            <label for="periodo">60 dias</label>
+            <input type="checkbox" name="periodo" id="periodo" required>
+            <label for="periodo">90 dias</label>
+            <input type="checkbox" name="periodo" id="periodo" required>
+
+            <input type="submit" value="Alugar">
+        </form>
+    
+</body>
+</html>

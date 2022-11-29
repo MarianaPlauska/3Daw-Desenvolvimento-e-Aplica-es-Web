@@ -1,0 +1,72 @@
+<!--Buscar carros disponíveis para alugar em uma cidade, em um período de tempo especifico. 
+Retornar a lista de carros com os dados do carro e de aluguel e listar para o usuário.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar carro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagens/logo.png" type="image/x-icon">
+    <script>
+        function buscarCarro() {
+            let cidade = document.getElementById("cidade").value;
+            let dataInicio = document.getElementById("dataInicio").value;
+            let dataFim = document.getElementById("dataFim").value;
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    let carros = JSON.parse(this.responseText);
+                    let html = "<table><tr><th>Placa</th><th>Marca</th><th>Modelo</th><th>Cor</th><th>Preço</th><th>Detalhes</th></tr>";
+                    
+                    for (let i = 0; i < carros.length; i++) 
+                    {
+                        html += "<tr><td>" + carros[i].placa + "</td><td>" + carros[i].marca + 
+                        "</td><td>" + carros[i].modelo + "</td><td>" + carros[i].cor + 
+                        "</td><td>" + carros[i].preco + "</td><td><a href='detalhesCarro.html?placa=" + 
+                        carros[i].placa + "'>Detalhes</a></td></tr>";
+                    }
+
+                    html += "</table>";
+                    document.getElementById("carros").innerHTML = html;
+                }
+            };
+            xhttp.open("GET", "buscarCarro.php?cidade=" + cidade + "&dataInicio=" + 
+            dataInicio + "&dataFim=" + dataFim, true);
+            xhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <!--menu-->
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="incluirCarro.html">Incluir carro</a></li>
+            <li><a href="alugarCarro.html">Alugar carro</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </div>
+    <div class="conteudo">
+        <h1>Buscar carro</h1>
+        <p>Busque um carro para alugar</p>
+        <br>
+        <form>
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" name="cidade">
+            <label for="carro">Carro</label>
+            <input type="text" id="carro" name="carro">
+            <label for="dataInicio">Data de início</label>
+            <input type="date" id="dataInicio" name="dataInicio">
+            <label for="dataFim">Data de fim</label>
+            <input type="date" id="dataFim" name="dataFim">
+            <input type="submit" value="Buscar" onclick="buscarCarro()">
+        </form>
+        <br>
+        <p>veja aqui a listagem com os carros disponíveis</p>
+        <a href="listarCarro.html">Listagem de carros</a>
+    
+</body>
+</html>
