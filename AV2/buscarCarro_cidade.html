@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Carros na sua cidade</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagens/logo.png" type="image/x-icon">
+    <script src="buscarCarro_cidade.js"></script>
+</head>
+<body>
+    <!--menu com as opções-->
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="incluirCarro.html">Incluir carro</a></li>
+            <li><a href="alugarCarro.html">Alugar carro</a></li>
+            <li><a href="buscarCarro.html">Buscar carro</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </div>
+    <div class="conteudo">
+        <h1>Carros disponíveis perto de você</h1>
+        <p>Selecione a cidade e o período que deseja alugar o carro</p>
+        
+        <fieldset>
+            <legend>Busque por cidade</legend>
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade">
+            <input type="button" value="Buscar" onclick="buscarCarroCidade()">
+        </fieldset>
+        <br>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
+                    <th>Cor</th>
+                    <th>Disponibilidade</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCarros">
+            </tbody>
+        </table>
+</body>
+</html>
