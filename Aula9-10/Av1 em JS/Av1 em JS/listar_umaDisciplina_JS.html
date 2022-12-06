@@ -1,0 +1,88 @@
+<!--listar uma disciplina do banco de dados-->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar uma Disciplina</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        function listarUmaDisciplina ()
+        {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            let obj = JSON.parse (this.responseText);
+            let x=0;
+            let txt = "<table border='1'>";
+            txt += "<tr><th>Nome</th><th>Periodo</th><th>Pre-Requisito</th><th>Credito</th></tr>";
+            for (x in obj)
+            {
+                txt += "<tr><td>" + obj[x].nome + "</td><td>" + obj[x].periodo + "</td><td>" + obj[x].preRequisito + "</td><td>" + obj[x].credito + "</td></tr>";
+            }
+            txt += "</table>";
+            document.getElementById("resultado").innerHTML = txt;
+            xmlhttp.open("GET", "http://localhost/3dawmanha/listarUmaDisciplina_JS.php");
+            xmlhttp.send();
+        }
+        function criaLinha(linha)
+        {
+            let tabela = document.getElementById("tabela");
+            let tr = document.createElement("tr");
+
+            let td1 = document.createElement("td");
+            textnode = document.createTextNode (linha.id);
+            td1.appendChild(textnode);
+            tr.appendChild(td1);
+
+            let td2 = document.createElement("td");
+            textnode = document.createTextNode (linha.nome);
+            td2.appendChild(textnode);
+            tr.appendChild(td2);
+
+            let td3 = document.createElement("td");
+            textnode = document.createTextNode (linha.periodo);
+            td3.appendChild(textnode);
+            tr.appendChild(td3);
+
+            let td4 = document.createElement("td");
+            textnode = document.createTextNode (linha.preRequisito);
+            td4.appendChild(textnode);
+            tr.appendChild(td4);
+
+            let td5 = document.createElement("td");
+            textnode = document.createTextNode (linha.credito);
+            td5.appendChild(textnode);
+            tr.appendChild(td5);
+
+            tabela.appendChild(tr);
+        }
+
+    </script>
+</head>
+<body>
+    <h2 style="text-align: center;">Listar uma Disciplina</h2>
+
+    <form action="listarUmaDisciplina_JS.php" method="post">
+        <label for="id">ID da Disciplina:</label>
+        <input type="text" id="id" name="id" placeholder="Digite o ID da Disciplina">
+        <input type="submit" value="Listar">
+    </form>
+    <br>
+    <table id="tabela">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Periodo</th>
+            <th>Pre-Requisito</th>
+            <th>Credito</th>
+        </tr>
+    </table>
+    
+</body>
+</html>
