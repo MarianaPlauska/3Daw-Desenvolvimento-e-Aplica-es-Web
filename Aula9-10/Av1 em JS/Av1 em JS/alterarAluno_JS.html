@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
@@ -8,12 +8,12 @@
     <script>
         function incluirAluno ()
         {
-            var nome = document.getElementById("nome").value;
-            var mat = document.getElementById("mat").value;
-            var email = document.getElementById("email").value;
-            var cpf = document.getElementById("cpf").value;
+            let nome = document.getElementById("nome").value;
+            let mat = document.getElementById("mat").value;
+            let email = document.getElementById("email").value;
+            let cpf = document.getElementById("cpf").value;
 
-            var xmlhttp = new XMLHttpRequest();
+            let xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() 
             {
                 if (this.readyState == 4 && this.status == 200) 
@@ -48,16 +48,52 @@
             xmlhttp.open("GET", "http://localhost/3dawmanha/listarAlunos_JS.php");
             xmlhttp.send();
         }
+        function enviarForm ()
+        {
+            let id = document.getElementById("id").value;
+            let nome = document.getElementById("nomeAlt").value;
+            let periodo = document.getElementById("periodoAlt").value;
+            let preRequisito = document.getElementById("preRequisitoAlt").value;
+            let credito = document.getElementById("creditoAlt").value;
 
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlHttp.open("GET", "http://localhost/3dawmanha/alterarDisciplina?nome=" + nome + "&periodo=" + periodo + "&preRequisito=" + preRequisito + "&credito=" + credito + "&id=" + id);
+            xmlHttp.send();
+        }
+        function alterarDisciplina ()
+        {
+            let id = document.getElementById("id").value;
+            let nome = document.getElementById("nomeAlt").value;
+            let periodo = document.getElementById("periodoAlt").value;
+            let preRequisito = document.getElementById("preRequisitoAlt").value;
+            let credito = document.getElementById("creditoAlt").value;
+
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    document.getElementById("resultado").innerHTML = this.responseText;
+                }
+            };
+            xmlHttp.open("GET", "http://localhost/3dawmanha/alterarDisciplina?nome=" + nome + "&periodo=" + periodo + "&preRequisito=" + preRequisito + "&credito=" + credito + "&id=" + id);
+            xmlHttp.send();
+        }
         function alterarAluno ()
         {
-            //Alterar os dados do aluno no banco de dados
-            var nome = document.getElementById("nome").value;
-            var mat = document.getElementById("mat").value;
-            var email = document.getElementById("email").value;
-            var cpf = document.getElementById("cpf").value;
+            let nome = document.getElementById("nome").value;
+            let mat = document.getElementById("mat").value;
+            let email = document.getElementById("email").value;
+            let cpf = document.getElementById("cpf").value;
 
-            var xmlhttp = new XMLHttpRequest();
+            let xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() 
             {
                 if (this.readyState == 4 && this.status == 200) 
@@ -65,30 +101,50 @@
                     document.getElementById("resultado").innerHTML = this.responseText;
                 }
             };
-            xmlhttp.open("GET", "http://localhost/3dawmanha/alterarAluno?nome=" + pNome +"&email=" + email + "&cpf="
-            + cpf + "&matricula=" + mat);
+            xmlhttp.open("GET", "http://localhost/3dawmanha/alterarAluno?nome=" + nome + "&matricula=" + mat + "&email=" + email + "&cpf=" + cpf);
             xmlhttp.send();
         }
+        function buscaDisciplina()
+        {
+            let id = document.getElementById("id").value;
+            let xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let obj = JSON.parse(this.responseText);
+
+                    document.getElementById("nomeAlt").value = obj.nome;
+                    document.getElementById("periodoAlt").value = obj.periodo;
+                    document.getElementById("preRequisitoAlt").value = obj.idPreRequisito;
+                    document.getElementById("creditoAlt").value = obj.credito;
+            
+                }
+            };
+        }
+      
+        
     </script>
 </head>
 <body style="background-color: rgb(230, 222, 199);">
     <h1>Alteração de Dados</h1>
-    <form class="formulario">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" placeholder="Nome do aluno">
+    <form>
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" onblur="buscaDisciplina()">
         <br>
-        <label for="mat">Matricula:</label>
-        <input type="text" id="mat" name="mat" placeholder="Matricula do aluno">
+        <label for="nomeAlt">Nome:</label>
+        <input type="text" id="nomeAlt" name="nomeAlt">
         <br>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Email do aluno">
+        <label for="periodoAlt">Periodo:</label>
+        <input type="text" id="periodoAlt" name="periodoAlt">
         <br>
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" placeholder="CPF do aluno">
+        <label for="preRequisitoAlt">Pre-Requisito:</label>
+        <input type="text" id="preRequisitoAlt" name="preRequisitoAlt">
         <br>
-        <input type="button" value="Alterar" onclick="alterarAluno()">
+        <label for="creditoAlt">Crédito:</label>
+        <input type="text" id="creditoAlt" name="creditoAlt">
+        <br>
+        <input type="button" value="Alterar" onclick="alterarDisciplina()">
     </form>
-    
     <a href="index.html">Voltar</a>
 </body>
 </html>
